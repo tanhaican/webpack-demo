@@ -1,4 +1,4 @@
-// Greeter.js
+﻿// Greeter.js
 /* 
 module.exports = function() {
   var greet = document.createElement('div');

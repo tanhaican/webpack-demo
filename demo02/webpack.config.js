@@ -1,75 +1,38 @@
-/*
-var path = require('path');
+ï»¿var path = require('path');
 var HtmlwebpackPlugin = require('html-webpack-plugin');
-//¶¨ÒåÁËÒ»Ğ©ÎÄ¼ş¼ĞµÄÂ·¾¶
+//å®šä¹‰äº†ä¸€äº›æ–‡ä»¶å¤¹çš„è·¯å¾„
 var ROOT_PATH = path.resolve(__dirname);
 var APP_PATH = path.resolve(ROOT_PATH, 'app');
 var BUILD_PATH = path.resolve(ROOT_PATH, 'build');
 
 module.exports = {
-  devtool: 'eval-source-map', //ÅäÖÃÉú³ÉSource Maps£¬Ñ¡ÔñºÏÊÊµÄÑ¡Ïî
-  entry:  APP_PATH, //ÏîÄ¿µÄÎÄ¼ş¼Ğ ¿ÉÒÔÖ±½ÓÓÃÎÄ¼ş¼ĞÃû³Æ Ä¬ÈÏ»áÕÒindex.js Ò²¿ÉÒÔÖ¸¶¨ÎÄ¼şÃû×Ö
-  output: {
-    path: BUILD_PATH, //´ò°üºóµÄÎÄ¼ş´æ·ÅµÄµØ·½
-    filename: 'bundle.js' //´ò°üºóÊä³öÎÄ¼şµÄÎÄ¼şÃû
-  },
-  
-  module: {
-    loaders: [// npm install --save-dev json-loader
-      { //ÔÚÅäÖÃÎÄ¼şÀïÌí¼ÓJSON loader
-        test: /\.json$/,
-        loader: "json"
-      }
-    ]
-  },
-  
-  plugins: [
-	new HtmlwebpackPlugin({
-		title: 'Hello world app'
-	})
-  ],
-  
-  devServer: { // npm install --save-dev webpack-dev-server
-	contentBase: './build',//±¾µØ·şÎñÆ÷Ëù¼ÓÔØµÄÒ³ÃæËùÔÚµÄÄ¿Â¼
-    colors: true,//ÖÕ¶ËÖĞÊä³ö½á¹ûÎª²ÊÉ«
-    historyApiFallback: true,//²»Ìø×ª
-    inline: true,//ÊµÊ±Ë¢ĞÂ£¬
-	hot: true
-  }
-};
-*/
-
-var path = require('path');
-var HtmlwebpackPlugin = require('html-webpack-plugin');
-//¶¨ÒåÁËÒ»Ğ©ÎÄ¼ş¼ĞµÄÂ·¾¶
-var ROOT_PATH = path.resolve(__dirname);
-var APP_PATH = path.resolve(ROOT_PATH, 'app');
-var BUILD_PATH = path.resolve(ROOT_PATH, 'build');
-
-module.exports = {
-  //ÏîÄ¿µÄÎÄ¼ş¼Ğ ¿ÉÒÔÖ±½ÓÓÃÎÄ¼ş¼ĞÃû³Æ Ä¬ÈÏ»áÕÒindex.js Ò²¿ÉÒÔÈ·¶¨ÊÇÄÄ¸öÎÄ¼şÃû×Ö
-  entry: APP_PATH,
-  //Êä³öµÄÎÄ¼şÃû ºÏ²¢ÒÔºóµÄjs»áÃüÃûÎªbundle.js
-  output: {
-    path: BUILD_PATH,
-    filename: 'bundle.js'
-  },
-  module: {
-	loaders: [
-		{test: /\.scss$/, loaders: ['style', 'css', 'sass'], include: APP_PATH},
-		{test: /\.(png|jpg)$/, loader: 'url?limit=40000'}// Í¼Æ¬´óĞ¡Ğ¡ÓÚÏŞÖÆ40000BÊ±×Ô¶¯Ê¹ÓÃbase64±àÂë
-	]
-  },
-  //Ìí¼ÓÎÒÃÇµÄ²å¼ş »á×Ô¶¯Éú³ÉÒ»¸öhtmlÎÄ¼ş
-  plugins: [
-    new HtmlwebpackPlugin({
-      title: 'Hello World app'
-    })
-  ],
-  devServer: {
-    historyApiFallback: true,
-    hot: true,
-    inline: true,
-    progress: true,
-  }
+    //é¡¹ç›®çš„æ–‡ä»¶å¤¹ å¯ä»¥ç›´æ¥ç”¨æ–‡ä»¶å¤¹åç§° é»˜è®¤ä¼šæ‰¾index.js ä¹Ÿå¯ä»¥ç¡®å®šæ˜¯å“ªä¸ªæ–‡ä»¶åå­—
+    entry: APP_PATH,
+    devtool: 'eval-source-map', //é…ç½®ç”ŸæˆSource Mapsï¼Œé€‰æ‹©åˆé€‚çš„é€‰é¡¹
+    //è¾“å‡ºçš„æ–‡ä»¶å åˆå¹¶ä»¥åçš„jsä¼šå‘½åä¸ºbundle.js
+    output: {
+        path: BUILD_PATH,
+        filename: 'bundle.js'
+    },
+    module: {
+        preLoaders: [
+            {test: /\.jsx?$/, include: APP_PATH, loader: 'jshint-loader'}
+        ],
+        loaders: [
+            {test: /\.scss$/, loaders: ['style', 'css?sourceMap', 'sass?sourceMap'], include: APP_PATH},
+            {test: /\.(png|jpg)$/, loader: 'url?limit=40000'}// å›¾ç‰‡å¤§å°å°äºé™åˆ¶40000Bæ—¶è‡ªåŠ¨ä½¿ç”¨base64ç¼–ç 
+        ]
+    },
+    //æ·»åŠ æˆ‘ä»¬çš„æ’ä»¶ ä¼šè‡ªåŠ¨ç”Ÿæˆä¸€ä¸ªhtmlæ–‡ä»¶
+    plugins: [
+        new HtmlwebpackPlugin({
+            title: 'Hello World app'
+        })
+    ],
+    devServer: {
+        historyApiFallback: true,
+        hot: true,
+        inline: true,
+        progress: true
+    }
 };

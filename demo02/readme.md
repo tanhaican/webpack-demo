@@ -1,8 +1,8 @@
-Í¨¹ıÖ´ĞĞ
+ï»¿é€šè¿‡æ‰§è¡Œ
 npm start
-»òÕß
+æˆ–è€…
 npm run start
-Æô¶¯webpack±àÒë
+å¯åŠ¨webpackç¼–è¯‘
 
 
-²Î¿¼½Ì³Ì£ºhttps://vikingmute.gitbooks.io/webpack-for-fools/content/entries/chapter-1.html
+å‚è€ƒæ•™ç¨‹ï¼šhttps://vikingmute.gitbooks.io/webpack-for-fools/content/entries/chapter-1.html

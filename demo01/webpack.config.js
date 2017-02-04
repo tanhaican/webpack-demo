@@ -1,14 +1,14 @@
-module.exports = {
-  devtool: 'eval-source-map', //ÅäÖÃÉú³ÉSource Maps£¬Ñ¡ÔñºÏÊÊµÄÑ¡Ïî
-  entry:  __dirname + '/app/main.js', //ÒÑ¶à´ÎÌá¼°µÄÎ¨Ò»Èë¿ÚÎÄ¼ş
+ï»¿module.exports = {
+  devtool: 'eval-source-map', //é…ç½®ç”ŸæˆSource Mapsï¼Œé€‰æ‹©åˆé€‚çš„é€‰é¡¹
+  entry:  __dirname + '/app/main.js', //å·²å¤šæ¬¡æåŠçš„å”¯ä¸€å…¥å£æ–‡ä»¶
   output: {
-    path: __dirname + '/public', //´ò°üºóµÄÎÄ¼ş´æ·ÅµÄµØ·½
-    filename: 'bundle.js' //´ò°üºóÊä³öÎÄ¼şµÄÎÄ¼şÃû
+    path: __dirname + '/public', //æ‰“åŒ…åçš„æ–‡ä»¶å­˜æ”¾çš„åœ°æ–¹
+    filename: 'bundle.js' //æ‰“åŒ…åè¾“å‡ºæ–‡ä»¶çš„æ–‡ä»¶å
   },
   
   module: {
     loaders: [// npm install --save-dev json-loader
-      { //ÔÚÅäÖÃÎÄ¼şÀïÌí¼ÓJSON loader
+      { //åœ¨é…ç½®æ–‡ä»¶é‡Œæ·»åŠ JSON loader
         test: /\.json$/,
         loader: "json"
       }
@@ -16,9 +16,9 @@ module.exports = {
   },
   
   devServer: { // npm install --save-dev webpack-dev-server
-	contentBase: './public',//±¾µØ·şÎñÆ÷Ëù¼ÓÔØµÄÒ³ÃæËùÔÚµÄÄ¿Â¼
-    colors: true,//ÖÕ¶ËÖĞÊä³ö½á¹ûÎª²ÊÉ«
-    historyApiFallback: true,//²»Ìø×ª
-    inline: true//ÊµÊ±Ë¢ĞÂ
+	contentBase: './public',//æœ¬åœ°æœåŠ¡å™¨æ‰€åŠ è½½çš„é¡µé¢æ‰€åœ¨çš„ç›®å½•
+    colors: true,//ç»ˆç«¯ä¸­è¾“å‡ºç»“æœä¸ºå½©è‰²
+    historyApiFallback: true,//ä¸è·³è½¬
+    inline: true//å®æ—¶åˆ·æ–°
   }
 }
