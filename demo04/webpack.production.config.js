@@ -1,50 +1,50 @@
 var webpack = require('webpack');
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-//¶¨ÒåÁËÒ»Ğ©ÎÄ¼ş¼ĞµÄÂ·¾¶
+//å®šä¹‰äº†ä¸€äº›æ–‡ä»¶å¤¹çš„è·¯å¾„
 var ROOT_PATH = path.resolve(__dirname);
 var APP_PATH = path.resolve(ROOT_PATH, 'app');
 var BUILD_PATH = path.resolve(ROOT_PATH, 'build');
 var TMP_PATH = path.resolve(ROOT_PATH, 'templates');
 
 module.exports = {
-    //ÏîÄ¿µÄÎÄ¼ş¼Ğ ¿ÉÒÔÖ±½ÓÓÃÎÄ¼ş¼ĞÃû³Æ Ä¬ÈÏ»áÕÒindex.js Ò²¿ÉÒÔÈ·¶¨ÊÇÄÄ¸öÎÄ¼şÃû×Ö
+    //é¡¹ç›®çš„æ–‡ä»¶å¤¹ å¯ä»¥ç›´æ¥ç”¨æ–‡ä»¶å¤¹åç§° é»˜è®¤ä¼šæ‰¾index.js ä¹Ÿå¯ä»¥ç¡®å®šæ˜¯å“ªä¸ªæ–‡ä»¶åå­—
     entry: {
-        //Èı¸öÈë¿ÚÎÄ¼ş£¬app, mobileºÍ vendors
+        //ä¸‰ä¸ªå…¥å£æ–‡ä»¶ï¼Œapp, mobileå’Œ vendors
         app: path.resolve(APP_PATH, 'index.js'),
         mobile: path.resolve(APP_PATH, 'mobile.js'),
-        // Ìí¼ÓÒª´ò°üÔÚvendorsÀïÃæµÄ¿â
+        // æ·»åŠ è¦æ‰“åŒ…åœ¨vendorsé‡Œé¢çš„åº“
         vendors: ['moment']
     },
-    //Êä³öµÄÎÄ¼şÃû ºÏ²¢ÒÔºóµÄjs»áÃüÃûÎªbundle.js
+    //è¾“å‡ºçš„æ–‡ä»¶å åˆå¹¶ä»¥åçš„jsä¼šå‘½åä¸ºbundle.js
     output: {
         path: BUILD_PATH,
-        //×¢Òâ ÎÒÃÇĞŞ¸ÄÁËbundle.js ÓÃÒ»¸öÊı×é[name]À´´úÌæ£¬
-        // Ëû»á¸ù¾İentryµÄÈë¿ÚÎÄ¼şÃû³ÆÉú³É¶à¸öjsÎÄ¼ş£¬
-        // ÕâÀï¾ÍÊÇ(app.js, mobile.jsºÍvendors.js)
-        filename: '[name].js'
+        //æ³¨æ„ æˆ‘ä»¬ä¿®æ”¹äº†bundle.js ç”¨ä¸€ä¸ªæ•°ç»„[name]æ¥ä»£æ›¿ï¼Œ
+        // ä»–ä¼šæ ¹æ®entryçš„å…¥å£æ–‡ä»¶åç§°ç”Ÿæˆå¤šä¸ªjsæ–‡ä»¶ï¼Œ
+        // è¿™é‡Œå°±æ˜¯(app.js, mobile.jså’Œvendors.js)
+        filename: '[name].[hash].js'
     },
     module: {
         loaders: [
             {test: /\.scss$/, loaders: ['style', 'css', 'sass'], include: APP_PATH},
-            {test: /\.(png|jpg)$/, loader: 'url?limit=40000'},// Í¼Æ¬´óĞ¡Ğ¡ÓÚÏŞÖÆ40000BÊ±×Ô¶¯Ê¹ÓÃbase64±àÂë
+            {test: /\.(png|jpg)$/, loader: 'url?limit=40000'},// å›¾ç‰‡å¤§å°å°äºé™åˆ¶40000Bæ—¶è‡ªåŠ¨ä½¿ç”¨base64ç¼–ç 
             {test: /\.ejs$/, loader: 'ejs-html'}
         ]
     },
-    //Ìí¼ÓÎÒÃÇµÄ²å¼ş »á×Ô¶¯Éú³ÉÒ»¸öhtmlÎÄ¼ş
+    //æ·»åŠ æˆ‘ä»¬çš„æ’ä»¶ ä¼šè‡ªåŠ¨ç”Ÿæˆä¸€ä¸ªhtmlæ–‡ä»¶
     plugins: [
-        //Õâ¸öÊ¹ÓÃuglifyJsÑ¹ËõÄãµÄjs´úÂë
+        //è¿™ä¸ªä½¿ç”¨uglifyJså‹ç¼©ä½ çš„jsä»£ç 
         new webpack.optimize.UglifyJsPlugin({minimize: true}),
-        //°ÑÈë¿ÚÎÄ¼şÀïÃæµÄÊı×é´ò°ü³Éverdors.js
+        //æŠŠå…¥å£æ–‡ä»¶é‡Œé¢çš„æ•°ç»„æ‰“åŒ…æˆverdors.js
         new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
-        //´´½¨ÁËÁ½¸öHtmlWebpackPluginµÄÊµÀı£¬Éú³ÉÁ½¸öÒ³Ãæ
+        //åˆ›å»ºäº†ä¸¤ä¸ªHtmlWebpackPluginçš„å®ä¾‹ï¼Œç”Ÿæˆä¸¤ä¸ªé¡µé¢
         new HtmlWebpackPlugin({
             title: 'Hello World app',
             template: path.resolve(TMP_PATH, 'index.html'),
-            filename: 'index.html',// Êä³öÎÄ¼ş¡¾×¢Òâ£ºÕâÀïµÄ¸ùÂ·¾¶ÊÇmodule.exports.output.path¡¿
-            //chunksÕâ¸ö²ÎÊı¸æËß²å¼şÒªÒıÓÃentryÀïÃæµÄÄÄ¼¸¸öÈë¿Ú
+            filename: 'index.html',// è¾“å‡ºæ–‡ä»¶ã€æ³¨æ„ï¼šè¿™é‡Œçš„æ ¹è·¯å¾„æ˜¯module.exports.output.pathã€‘
+            //chunksè¿™ä¸ªå‚æ•°å‘Šè¯‰æ’ä»¶è¦å¼•ç”¨entryé‡Œé¢çš„å“ªå‡ ä¸ªå…¥å£
             chunks: ['app', 'vendors'],
-            //Òª°Ñscript²åÈëµ½±êÇ©Àï
+            //è¦æŠŠscriptæ’å…¥åˆ°æ ‡ç­¾é‡Œ
             inject: 'body'
         }),
         new HtmlWebpackPlugin({
