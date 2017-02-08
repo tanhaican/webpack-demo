@@ -4,8 +4,8 @@
   "description": "First webpack demo.",
   "main": "build/index.js",
   "scripts": {
-    "dev": "webpack-dev-server --config ./webpack.config.dev.js --hot --inline",
-    "build": "rm -rf ./build && webpack --progress --profile --colors -config webpack.config.js"
+    "dev": "webpack-dev-server --content-base dev/ --config ./webpack.config.dev.js --hot --inline",
+    "build": "webpack --progress --profile --colors -config webpack.config.js"
   },
   "author": "haican.tan@duxact.com",
   "license": "ISC",

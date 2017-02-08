@@ -19,10 +19,11 @@ module.exports = {
     //输出的文件名 合并以后的js会命名为bundle.js
     output: {
         path: BUILD_PATH,
+        publicPath: BUILD_PATH,
         //注意 我们修改了bundle.js 用一个数组[name]来代替，
         // 他会根据entry的入口文件名称生成多个js文件，
         // 这里就是(app.js, mobile.js和vendors.js)
-        filename: '[name].[hash].js'
+        filename: '[name]-[chunkhash:6].js'
     },
     module: {
         loaders: [
@@ -33,7 +34,11 @@ module.exports = {
     //添加我们的插件 会自动生成一个html文件
     plugins: [
         //这个使用uglifyJs压缩你的js代码
-        new webpack.optimize.UglifyJsPlugin({minimize: true}),
+        new webpack.optimize.UglifyJsPlugin({
+          compress: {
+            warnings: false
+          }
+        }),
         //把入口文件里面的数组打包成verdors.js
         new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
         //创建了两个HtmlWebpackPlugin的实例，生成两个页面
@@ -43,6 +48,8 @@ module.exports = {
             filename: 'index.html',
             //chunks这个参数告诉插件要引用entry里面的哪几个入口
             chunks: ['app', 'vendors'],
+            hash: true,
+            cache: true,
             //要把script插入到标签里
             inject: 'body'
         }),
@@ -51,6 +58,8 @@ module.exports = {
             template: path.resolve(TMP_PATH, 'mobile.ejs'),
             filename: 'mobile.html',
             chunks: ['mobile', 'vendors'],
+            hash: true,
+            cache: true,
             inject: 'body'
         })
     ]
