@@ -6,14 +6,14 @@ var path = require('path');
 var ROOT_PATH = path.resolve(__dirname);
 var APP_PATH = path.resolve(ROOT_PATH, 'app');
 var DEV_PATH = path.resolve(ROOT_PATH, 'dev');
+var BUILD_PATH = path.resolve(ROOT_PATH, 'build');
 var TMP_PATH = path.resolve(ROOT_PATH, 'templates');
 
 module.exports = merge(BASE_CONFIG, {
     devtool: 'eval-source-map', //配置生成Source Maps，选择合适的选项
     //输出的文件名 合并以后的js会命名为bundle.js
     output: {
-        path: DEV_PATH,
-        publicPath: DEV_PATH,
+        path: BUILD_PATH,
         //注意 我们修改了bundle.js 用一个数组[name]来代替，
         // 他会根据entry的入口文件名称生成多个js文件，
         // 这里就是(app.js, mobile.js和vendors.js)
@@ -33,9 +33,8 @@ module.exports = merge(BASE_CONFIG, {
         new HtmlWebpackPlugin({
             title: 'Hello app',
             template: path.resolve(TMP_PATH, 'index.html'),
-            filename: 'index2.html',
-            hash: true,
-            cache: true
+            filename: 'index.html',
+            hash: true
         })
     ],
     devServer: {

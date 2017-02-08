@@ -19,7 +19,7 @@ module.exports = {
     //输出的文件名 合并以后的js会命名为bundle.js
     output: {
         path: BUILD_PATH,
-        publicPath: BUILD_PATH,
+        // publicPath: BUILD_PATH,
         //注意 我们修改了bundle.js 用一个数组[name]来代替，
         // 他会根据entry的入口文件名称生成多个js文件，
         // 这里就是(app.js, mobile.js和vendors.js)
@@ -45,11 +45,10 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: 'Hello World app',
             template: path.resolve(TMP_PATH, 'index.html'),
-            filename: 'index.html',
+            filename: 'index2.html',
             //chunks这个参数告诉插件要引用entry里面的哪几个入口
             chunks: ['app', 'vendors'],
             hash: true,
-            cache: true,
             //要把script插入到标签里
             inject: 'body'
         }),
@@ -59,7 +58,6 @@ module.exports = {
             filename: 'mobile.html',
             chunks: ['mobile', 'vendors'],
             hash: true,
-            cache: true,
             inject: 'body'
         })
     ]
