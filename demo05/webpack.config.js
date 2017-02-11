@@ -11,7 +11,8 @@ module.exports = {
     //项目的文件夹 可以直接用文件夹名称 默认会找index.js 也可以确定是哪个文件名字
     entry: {
         //三个入口文件，app, mobile和 vendors
-        app: path.resolve(APP_PATH, 'index.js'),
+        app: path.resolve(APP_PATH, 'index.js'), // app: './app/index.js',
+
         mobile: path.resolve(APP_PATH, 'mobile.js'),
         // 添加要打包在vendors里面的库
         vendors: ['moment']
@@ -26,18 +27,24 @@ module.exports = {
         filename: '[name]-[chunkhash:6].js'
     },
     module: {
-        loaders: [
-            {test: /\.scss$/, loaders: ['style', 'css?sourceMap', 'sass?sourceMap'], include: APP_PATH},
-            {test: /\.(png|jpg)$/, loader: 'url?limit=40000'}// 图片大小小于限制40000B时自动使用base64编码
+        loaders: [{
+                test: /\.scss$/,
+                loaders: ['style', 'css?sourceMap', 'sass?sourceMap'],
+                include: APP_PATH
+            },
+            {
+                test: /\.(png|jpg)$/,
+                loader: 'url?limit=40000'
+            } // 图片大小小于限制40000B时自动使用base64编码
         ]
     },
     //添加我们的插件 会自动生成一个html文件
     plugins: [
         //这个使用uglifyJs压缩你的js代码
         new webpack.optimize.UglifyJsPlugin({
-          compress: {
-            warnings: false
-          }
+            compress: {
+                warnings: false
+            }
         }),
         //把入口文件里面的数组打包成verdors.js
         new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),

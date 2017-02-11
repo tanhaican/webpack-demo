@@ -4,7 +4,7 @@
 require('./main.scss');
 require('moment');
 
-var app  = document.createElement('div');
+var app = document.createElement('div');
 
-app.innerHTML = '<h1>Hello World</h1>';
+app.innerHTML = '<h1>Hello mobile World</h1>';
 document.body.appendChild(app);
